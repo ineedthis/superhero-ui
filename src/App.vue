@@ -70,7 +70,11 @@ export default {
         Backend.getVerifiedUrls(),
         Backend.getGrayListedUrls(),
         Backend.getTokenInfo(),
-        Backend.getWordRegistry(),
+        Backend.getWordRegistry()
+          .catch((err) => {
+            console.log(`tokenCache/wordRegistry response with: ${err}`);
+            return [];
+          }),
         this.$store.dispatch('backend/reloadStats'),
         this.$store.dispatch('backend/reloadPrices'),
         this.reloadUserData(),
@@ -90,7 +94,7 @@ export default {
         this.$store.dispatch('updatePinnedItems'),
         this.$store.dispatch('updateUserProfile'),
         (async () => {
-          const balance = await this.sdk.balance(this.address).catch(() => 0);
+          const balance = await this.sdk.balance(this.address);
           this.updateBalance(atomsToAe(balance).toFixed(2));
         })(),
         this.$store.dispatch('updateTokensBalanceAndPrice'),

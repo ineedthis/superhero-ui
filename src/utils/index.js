@@ -91,22 +91,15 @@ export const blockToDate = (goalBlock, height) => {
   return new Date(diff * 180000 + Date.now());
 };
 
-export const wrapTry = async (promise, store) => {
+export const wrapTry = async (promise) => {
+  // eslint-disable-next-line no-useless-catch
   try {
     return promise.then((res) => {
-      if (!res) {
-        if (store) { store.commit('setBackendStatus', false); }
-        return null;
-      }
-      if (store) { store.commit('setBackendStatus', true); }
-      if (!res.ok) throw new Error(`Request failed with ${res.status}`);
+      if (!res) throw new Error('Responce object is undefined');
+      if (!res.ok) throw new Error(`Request failed with status ${res.status}`);
       return res.json();
-    }).catch((error) => {
-      console.error(error);
-      return null;
     });
   } catch (err) {
-    if (store) { store.commit('setBackendStatus', false); }
-    return null;
+    throw err;
   }
 };

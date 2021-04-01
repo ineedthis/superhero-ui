@@ -382,8 +382,7 @@ export default {
       Backend.getCommentCountForAddress(this.address)
         .then((userComment) => {
           this.userCommentCount = userComment.count;
-        })
-        .catch(console.error);
+        });
 
       Backend.getProfile(this.address)
         .then((profile) => {
@@ -395,8 +394,7 @@ export default {
           this.profile.biography = this.profile.biography || '';
           this.profile.coverImage = this.profile.coverImage || '';
           this.$store.commit('setUserProfile', profile);
-        })
-        .catch(console.error);
+        });
     },
   },
 };

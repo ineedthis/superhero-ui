@@ -1,13 +1,10 @@
-// eslint-disable-next-line import/no-cycle
-import store from '../store';
 import { wrapTry } from './index';
 
 const backendFetch = (path, ...args) => wrapTry(
-  fetch(`${process.env.VUE_APP_BACKEND_URL}/${path}`, ...args).catch((err) => console.error(err), store),
+  fetch(`${process.env.VUE_APP_BACKEND_URL}/${path}`, ...args),
 );
 
-const backendFetchNoTimeout = (path, ...args) => fetch(`${process.env.VUE_APP_BACKEND_URL}/${path}`, ...args)
-  .catch((err) => console.error(err));
+const backendFetchNoTimeout = (path, ...args) => fetch(`${process.env.VUE_APP_BACKEND_URL}/${path}`, ...args);
 
 export default class Backend {
   static getTipComments = async (tipId) => backendFetch(`comment/api/tip/${encodeURIComponent(tipId)}`);
@@ -168,4 +165,14 @@ export default class Backend {
     body: JSON.stringify(postParam),
     headers: { 'Content-Type': 'application/json' },
   });
+
+  static issueReport = (report) => {
+    backendFetch('errorreport', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(report),
+    });
+  };
 }

@@ -126,8 +126,7 @@ export default {
       Backend.getPinnedItems(this.address)
         .then((pinnedItems) => {
           this.userPinnedItems = pinnedItems;
-        })
-        .catch(console.error);
+        });
     }
 
     const interval = setInterval(() => this.reloadData(), 120 * 1000);
