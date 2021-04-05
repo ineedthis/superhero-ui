@@ -94,7 +94,9 @@ export default {
         this.$store.dispatch('updatePinnedItems'),
         this.$store.dispatch('updateUserProfile'),
         (async () => {
-          const balance = await this.sdk.balance(this.address);
+          const balance = await this.sdk.balance(this.address)
+            // balance of a new account throws 404 error
+            .catch(() => 0);
           this.updateBalance(atomsToAe(balance).toFixed(2));
         })(),
         this.$store.dispatch('updateTokensBalanceAndPrice'),
