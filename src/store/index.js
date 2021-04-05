@@ -6,10 +6,8 @@ import getters from './getters';
 import persistState from './plugins/persistState';
 import modals from './plugins/modals';
 import errorHandler from './plugins/errorHandler';
-// eslint-disable-next-line import/no-cycle
 import backend from './modules/backend';
 import aeternity from './modules/aeternity';
-// eslint-disable-next-line import/no-cycle
 import Backend from '../utils/backend';
 import Middleware from '../utils/middleware';
 

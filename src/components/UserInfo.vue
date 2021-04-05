@@ -394,7 +394,9 @@ export default {
           this.profile.biography = this.profile.biography || '';
           this.profile.coverImage = this.profile.coverImage || '';
           this.$store.commit('setUserProfile', profile);
-        });
+        })
+        // to not throw an error for a newly created aeternity account
+        .catch(console.error);
     },
   },
 };
