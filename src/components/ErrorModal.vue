@@ -87,14 +87,13 @@ export default {
   },
   props: {
     resolve: { type: Function, required: true },
-    error: { type: [Object, Error], required: true },
+    error: { type: Object, required: true },
   },
   data() {
     return {
       report: '',
       isSent: false,
       details: false,
-      time: Date.now(),
     };
   },
   methods: {
@@ -105,7 +104,7 @@ export default {
         error: this.error,
         platform: 'superhero-ui',
         description: this.report,
-        time: this.time,
+        time: this.error.time,
       };
 
       await Backend.issueReport(report);
