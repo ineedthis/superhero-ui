@@ -4,8 +4,6 @@ const backendFetch = (path, ...args) => wrapTry(
   fetch(`${process.env.VUE_APP_BACKEND_URL}/${path}`, ...args),
 );
 
-const backendFetchNoTimeout = (path, ...args) => fetch(`${process.env.VUE_APP_BACKEND_URL}/${path}`, ...args);
-
 export default class Backend {
   static getTipComments = async (tipId) => backendFetch(`comment/api/tip/${encodeURIComponent(tipId)}`);
 
@@ -90,7 +88,7 @@ export default class Backend {
     return backendFetch(`cache/tips${query}`);
   };
 
-  static addToken = async (address) => backendFetchNoTimeout('tokenCache/addToken', {
+  static addToken = async (address) => backendFetch('tokenCache/addToken', {
     method: 'post',
     body: JSON.stringify({ address }),
     headers: { 'Content-Type': 'application/json' },
