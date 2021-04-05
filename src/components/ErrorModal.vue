@@ -22,7 +22,7 @@
           <IconEye />
           {{ $t('reportBug.ViewDetails') }}
         </ButtonPlain>
-        <p v-show="details">
+        <p v-if="details">
           {{ JSON.stringify(error) }}
         </p>
         <h2 class="report-title">
