@@ -17,11 +17,21 @@ export default ({ dispatch }) => {
   };
 
   window.addEventListener('unhandledrejection', (error) => {
-    const combined = { message: error.reason, stack: error.reason.stack, info: error };
+    const combined = {
+      message: error.reason,
+      stack: error.reason.stack,
+      info: error,
+      time: Date.now(),
+    };
     handlerBody(combined);
   });
   window.onerror = (message, source, line, col, error) => {
-    const combined = { message, stack: `${source} ${line}:${col}`, info: error };
+    const combined = {
+      message,
+      stack: `${source} ${line}:${col}`,
+      info: error,
+      time: Date.now(),
+    };
     handlerBody(combined);
   };
 };

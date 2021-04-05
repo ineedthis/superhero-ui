@@ -1,9 +1,9 @@
 <template>
   <div
     class="error-modal"
-    @click="resolve"
+    @click.exact="resolve"
   >
-    <div class="modal-body" @click.stop>
+    <div class="modal-body">
       <IconClose
         class="close-modal"
         @click="resolve"
@@ -94,6 +94,7 @@ export default {
       report: '',
       isSent: false,
       details: false,
+      time: Date.now(),
     };
   },
   methods: {
@@ -104,7 +105,7 @@ export default {
         error: this.error,
         platform: 'superhero-ui',
         description: this.report,
-        time: Date.now(),
+        time: this.time,
       };
 
       await Backend.issueReport(report);
