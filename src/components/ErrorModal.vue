@@ -1,9 +1,9 @@
 <template>
   <div
     class="error-modal"
-    @click.exact="resolve"
+    @click="resolve"
   >
-    <div class="modal-body">
+    <div class="modal-body" @click.stop>
       <IconClose
         class="close-modal"
         @click="resolve"
