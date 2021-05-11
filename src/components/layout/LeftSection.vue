@@ -5,11 +5,11 @@
 </template>
 
 <script>
-import Navigation from './Navigation.vue';
+  import Navigation from "./Navigation.vue";
 
-export default {
-  components: {
-    Navigation,
-  },
-};
+  export default {
+    components: {
+      Navigation
+    }
+  };
 </script>

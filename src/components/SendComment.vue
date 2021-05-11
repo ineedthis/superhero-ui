@@ -1,8 +1,5 @@
 <template>
-  <form
-    class="send-comment"
-    @submit.prevent="sendTipComment"
-  >
+  <form class="send-comment" @submit.prevent="sendTipComment">
     <MessageInput
       v-model="comment"
       :placeholder="$t('views.TipCommentsView.AddReply')"
@@ -15,40 +12,41 @@
 </template>
 
 <script>
-import { handleUnknownError } from '../utils';
-import MessageInput from './MessageInput.vue';
+import { handleUnknownError } from "../utils";
+import MessageInput from "./MessageInput.vue";
 
 export default {
   components: { MessageInput },
   props: {
-    tipId: { type: String, required: true },
-    parentId: { type: [Number, String], default: undefined },
-  },
-  data: () => ({
-    comment: '',
-    loading: false,
-  }),
-  computed: {
-    allowSubmit() {
-      return this.comment.trim().length > 0;
+      tipId: { type: String, required: true },
+      parentId: { type: [Number, String], default: undefined }
     },
-  },
-  methods: {
-    async sendTipComment() {
-      if (!this.allowSubmit) return;
-      this.loading = true;
-      try {
-        await this.$store.dispatch(
-          'backend/sendComment',
-          { text: this.comment, tipId: this.tipId, parentId: this.parentId },
-        );
-        this.comment = '';
-      } catch (e) {
-        if (e.message !== 'Operation rejected by user') handleUnknownError(e);
-      } finally {
-        this.loading = false;
+    data: () => ({
+      comment: "",
+      loading: false
+    }),
+    computed: {
+      allowSubmit() {
+        return this.comment.trim().length > 0;
       }
     },
-  },
-};
+    methods: {
+      async sendTipComment() {
+        if (!this.allowSubmit) return;
+        this.loading = true;
+        try {
+          await this.$store.dispatch("backend/sendComment", {
+            text: this.comment,
+            tipId: this.tipId,
+            parentId: this.parentId
+          });
+          this.comment = "";
+        } catch (e) {
+          if (e.message !== "Operation rejected by user") handleUnknownError(e);
+        } finally {
+          this.loading = false;
+        }
+      }
+    }
+  };
 </script>

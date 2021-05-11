@@ -11,32 +11,32 @@
 </template>
 
 <script>
-import Link from './Link.vue';
+  import Link from "./Link.vue";
 
-export default {
-  components: { Link },
-  props: {
-    to: { type: [String, Object, URL], default: null },
-    disabled: Boolean,
-  },
-};
+  export default {
+    components: { Link },
+    props: {
+      to: { type: [String, Object, URL], default: null },
+      disabled: Boolean
+    }
+  };
 </script>
 
 <style lang="scss" scoped>
-.button-plain {
-  display: inline-block;
-  outline: none;
-  border: none;
-  background: transparent;
-  padding: 0;
-  text-decoration: none;
-  text-align: center;
-  font: inherit;
-  color: inherit;
-  cursor: pointer;
+  .button-plain {
+    display: inline-block;
+    outline: none;
+    border: none;
+    background: transparent;
+    padding: 0;
+    text-decoration: none;
+    text-align: center;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
 
-  &[disabled] {
-    cursor: not-allowed;
+    &[disabled] {
+      cursor: not-allowed;
+    }
   }
-}
 </style>

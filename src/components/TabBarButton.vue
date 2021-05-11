@@ -1,21 +1,17 @@
 <template>
-  <ButtonPlain
-    class="tab-bar-button"
-    v-bind="$attrs"
-    v-on="$listeners"
-  >
+  <ButtonPlain class="tab-bar-button" v-bind="$attrs" v-on="$listeners">
     <slot />
   </ButtonPlain>
 </template>
 
 <script>
-import ButtonPlain from './ButtonPlain.vue';
+  import ButtonPlain from "./ButtonPlain.vue";
 
-export default {
-  components: {
-    ButtonPlain,
-  },
-};
+  export default {
+    components: {
+      ButtonPlain
+    }
+  };
 </script>
 
 <style lang="scss" scoped>

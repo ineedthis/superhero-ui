@@ -6,13 +6,13 @@
 </template>
 
 <script>
-import AeAmount from './AeAmount.vue';
-import FiatValue from './FiatValue.vue';
+  import AeAmount from "./AeAmount.vue";
+  import FiatValue from "./FiatValue.vue";
 
-export default {
-  components: {
-    FiatValue,
-    AeAmount,
-  },
-};
+  export default {
+    components: {
+      FiatValue,
+      AeAmount
+    }
+  };
 </script>

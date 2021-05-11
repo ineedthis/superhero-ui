@@ -9,24 +9,25 @@
 </template>
 
 <script>
-import SearchInput from './SearchInput.vue';
+  import SearchInput from "./SearchInput.vue";
 
-export default {
-  components: { SearchInput },
-  props: {
-    sided: { type: Boolean },
-  },
-  data() {
-    return {
-      query: this.$route.params.query || '',
-    };
-  },
-  methods: {
-    search() {
-      this.$router[this.$route.name.startsWith('feed') ? 'replace' : 'push']({
-        name: this.query ? 'feed-search' : 'feed', params: { query: this.query },
-      });
+  export default {
+    components: { SearchInput },
+    props: {
+      sided: { type: Boolean }
     },
-  },
-};
+    data() {
+      return {
+        query: this.$route.params.query || ""
+      };
+    },
+    methods: {
+      search() {
+        this.$router[this.$route.name.startsWith("feed") ? "replace" : "push"]({
+          name: this.query ? "feed-search" : "feed",
+          params: { query: this.query }
+        });
+      }
+    }
+  };
 </script>

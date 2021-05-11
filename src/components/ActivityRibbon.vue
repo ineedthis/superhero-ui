@@ -11,7 +11,9 @@
       <span class="text">
         {{ tab.text }}
       </span>
+
     </FilterButton>
+
     <slot name="left" />
     <div class="separator" />
     <slot name="right" />
@@ -19,38 +21,38 @@
 </template>
 
 <script>
-import FilterButton from './FilterButton.vue';
+  import FilterButton from "./FilterButton.vue";
 
-export default {
-  components: {
-    FilterButton,
-  },
-  props: {
-    tabs: { type: Array, required: true },
-    value: { type: String, required: true },
-  },
-  methods: {
-    updateValue(value) {
-      this.$emit('input', value);
+  export default {
+    components: {
+      FilterButton
     },
-  },
-};
+    props: {
+      tabs: { type: Array, required: true },
+      value: { type: String, required: true }
+    },
+    methods: {
+      updateValue(value) {
+        this.$emit("input", value);
+      }
+    }
+  };
 </script>
 
 <style lang="scss" scoped>
-.activity-ribbon {
-  background-color: $light_color;
-  padding: 0.5rem 0.75rem 0.5rem 0.75rem;
-  margin-bottom: 0.15rem;
-  display: flex;
-  align-items: center;
+  .activity-ribbon {
+    background-color: $light_color;
+    padding: 0.5rem 0.75rem 0.5rem 0.75rem;
+    margin-bottom: 0.15rem;
+    display: flex;
+    align-items: center;
 
-  .text {
-    padding-left: 0.15rem;
-  }
+    .text {
+      padding-left: 0.15rem;
+    }
 
-  .separator {
-    flex-grow: 1;
+    .separator {
+      flex-grow: 1;
+    }
   }
-}
 </style>

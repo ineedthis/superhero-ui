@@ -3,16 +3,10 @@
     <div v-if="!!$scopedSlots.default">
       <slot :open="openBuy" />
     </div>
-    <div
-      v-else
-      class="buttons"
-    >
-      <OutlinedButton
-        class="green unpadded"
-        :class="{ active: showBuyModal }"
-        @click="openBuy"
-      >
-        {{ $t('components.WordBuySellButtons.Buy') }}
+
+    <div v-else class="buttons">
+      <OutlinedButton class="green unpadded" :class="{ active: showBuyModal }" @click="openBuy">
+        {{ $t("components.WordBuySellButtons.Buy") }}
       </OutlinedButton>
 
       <OutlinedButton
@@ -21,35 +15,30 @@
         :disabled="tokenBalance === 0"
         @click="openSell"
       >
-        {{ $t('components.WordBuySellButtons.Sell') }}
+        {{ $t("components.WordBuySellButtons.Sell") }}
       </OutlinedButton>
     </div>
 
-    <Modal
-      v-if="showBuyModal"
-      class="buy-modal"
-      @close="showBuyModal = false"
-    >
+    <Modal v-if="showBuyModal" class="buy-modal" @close="showBuyModal = false">
       <Loader
         v-if="loading"
         :progress-message="progressMessage"
         :message="$t('components.WordBuySellButtons.ConfirmMessage')"
       />
+
       <template v-else>
         <div class="label">
-          {{ $t('components.WordBuySellButtons.AccountBalance') }}
+          {{ $t("components.WordBuySellButtons.AccountBalance") }}
         </div>
+
         <div class="return-amount">
-          <AeAmountFiat
-            class="token-balance"
-            :amount="tokenBalance"
-            :token="tokenAddress"
-            aettos
-          />
+          <AeAmountFiat class="token-balance" :amount="tokenBalance" :token="tokenAddress" aettos />
         </div>
+
         <div class="label">
-          {{ $t('components.WordBuySellButtons.AmountBuying') }}
+          {{ $t("components.WordBuySellButtons.AmountBuying") }}
         </div>
+
         <div>
           <AeInputAmount
             v-model="buyAmount"
@@ -59,24 +48,22 @@
             @keyup="buyValue"
           />
         </div>
+
         <div class="label">
-          {{ $t('components.WordBuySellButtons.BuyPrice') }}
+          {{ $t("components.WordBuySellButtons.BuyPrice") }}
         </div>
+
         <div class="return-amount">
-          <AeAmountFiat
-            :amount="buyPrice"
-            aettos
-          />
+          <AeAmountFiat :amount="buyPrice" aettos />
         </div>
+
         <div class="label">
-          {{ $t('components.WordBuySellButtons.TotalPay') }}
+          {{ $t("components.WordBuySellButtons.TotalPay") }}
         </div>
+
         <div class="return-amount">
-          <AeAmountFiat
-            v-if="buyAeAmount !== null"
-            :amount="buyAeAmount"
-            aettos
-          />
+          <AeAmountFiat v-if="buyAeAmount !== null" :amount="buyAeAmount" aettos />
+
           <Loading
             v-if="buyAeAmount === null || updatingValue"
             :class="{ 'update-loading': buyAeAmount !== null && updatingValue }"
@@ -84,45 +71,37 @@
             class="p-0"
           />
         </div>
+
         <div class="text-center">
-          <OutlinedButton
-            :disabled="buyAeAmount <= 0"
-            class="green buy-sell"
-            @click="buy"
-          >
+          <OutlinedButton :disabled="buyAeAmount <= 0" class="green buy-sell" @click="buy">
             <span>
-              {{ $t('components.WordBuySellButtons.Buy') }}
+              {{ $t("components.WordBuySellButtons.Buy") }}
             </span>
           </OutlinedButton>
         </div>
       </template>
     </Modal>
 
-    <Modal
-      v-if="showSellModal"
-      class="sell-modal"
-      @close="showSellModal = false"
-    >
+    <Modal v-if="showSellModal" class="sell-modal" @close="showSellModal = false">
       <Loader
         v-if="loading"
         :progress-message="progressMessage"
         :message="$t('components.WordBuySellButtons.ConfirmMessage')"
       />
+
       <template v-else>
         <div class="label">
-          {{ $t('components.WordBuySellButtons.AccountBalance') }}
+          {{ $t("components.WordBuySellButtons.AccountBalance") }}
         </div>
+
         <div class="return-amount">
-          <AeAmountFiat
-            class="token-balance"
-            :amount="tokenBalance"
-            :token="tokenAddress"
-            aettos
-          />
+          <AeAmountFiat class="token-balance" :amount="tokenBalance" :token="tokenAddress" aettos />
         </div>
+
         <div class="label">
-          {{ $t('components.WordBuySellButtons.AmountSelling') }}
+          {{ $t("components.WordBuySellButtons.AmountSelling") }}
         </div>
+
         <div>
           <AeInputAmount
             v-model="sellAmount"
@@ -132,24 +111,22 @@
             @keyup="sellValue"
           />
         </div>
+
         <div class="label">
-          {{ $t('components.WordBuySellButtons.SellPrice') }}
+          {{ $t("components.WordBuySellButtons.SellPrice") }}
         </div>
+
         <div class="return-amount">
-          <AeAmountFiat
-            :amount="sellPrice"
-            aettos
-          />
+          <AeAmountFiat :amount="sellPrice" aettos />
         </div>
+
         <div class="label">
-          {{ $t('components.WordBuySellButtons.TotalGet') }}
+          {{ $t("components.WordBuySellButtons.TotalGet") }}
         </div>
+
         <div class="return-amount">
-          <AeAmountFiat
-            v-if="sellAeAmount !== null"
-            :amount="sellAeAmount"
-            aettos
-          />
+          <AeAmountFiat v-if="sellAeAmount !== null" :amount="sellAeAmount" aettos />
+
           <Loading
             v-if="sellAeAmount === null || updatingValue"
             :class="{ 'update-loading': sellAeAmount !== null && updatingValue }"
@@ -157,13 +134,10 @@
             class="p-0"
           />
         </div>
+
         <div class="text-center">
-          <OutlinedButton
-            :disabled="sellAeAmount <= 0"
-            class="red buy-sell"
-            @click="sell"
-          >
-            <span>{{ $t('components.WordBuySellButtons.Sell') }}</span>
+          <OutlinedButton :disabled="sellAeAmount <= 0" class="red buy-sell" @click="sell">
+            <span>{{ $t("components.WordBuySellButtons.Sell") }}</span>
           </OutlinedButton>
         </div>
       </template>
@@ -172,271 +146,275 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import BigNumber from 'bignumber.js';
-import Backend from '../utils/backend';
-import { EventBus } from '../utils/eventBus';
-import Loading from './Loading.vue';
-import OutlinedButton from './OutlinedButton.vue';
-import Modal from './Modal.vue';
-import AeAmountFiat from './AeAmountFiat.vue';
-import { shiftDecimalPlaces } from '../utils';
-import AeInputAmount from './AeInputAmount.vue';
-import Loader from './Loader.vue';
+  import { mapState } from "vuex";
+  import BigNumber from "bignumber.js";
+  import Backend from "../utils/backend";
+  import { EventBus } from "../utils/eventBus";
+  import Loading from "./Loading.vue";
+  import OutlinedButton from "./OutlinedButton.vue";
+  import Modal from "./Modal.vue";
+  import AeAmountFiat from "./AeAmountFiat.vue";
+  import { shiftDecimalPlaces } from "../utils";
+  import AeInputAmount from "./AeInputAmount.vue";
+  import Loader from "./Loader.vue";
 
-export default {
-  name: 'WordBuySellButtons',
-  components: {
-    AeInputAmount,
-    AeAmountFiat,
-    Loading,
-    OutlinedButton,
-    Modal,
-    Loader,
-  },
-  props: {
-    sale: { type: String, required: true },
-  },
-  data: () => ({
-    buyPrice: null,
-    sellPrice: null,
-    buyAmount: 1,
-    sellAmount: 1,
-    totalSupply: null,
-    tokenAddress: null,
-    buyAeAmount: null,
-    sellAeAmount: null,
-    showBuyModal: false,
-    showSellModal: false,
-    loading: true,
-    updatingValue: true,
-    progressMessage: '',
-  }),
-  computed: {
-    ...mapState(['address', 'balance', 'tokenBalances']),
-    tokenBalance() {
-      const balance = this.tokenBalances && this.tokenAddress
-        && this.tokenBalances.find((t) => t.token === this.tokenAddress);
-
-      return new BigNumber(balance ? balance.balance : '0').toNumber();
+  export default {
+    name: "WordBuySellButtons",
+    components: {
+      AeInputAmount,
+      AeAmountFiat,
+      Loading,
+      OutlinedButton,
+      Modal,
+      Loader
     },
-  },
-  mounted() {
-    this.reloadData();
-    EventBus.$on('reloadData', () => {
+    props: {
+      sale: { type: String, required: true }
+    },
+    data: () => ({
+      buyPrice: null,
+      sellPrice: null,
+      buyAmount: 1,
+      sellAmount: 1,
+      totalSupply: null,
+      tokenAddress: null,
+      buyAeAmount: null,
+      sellAeAmount: null,
+      showBuyModal: false,
+      showSellModal: false,
+      loading: true,
+      updatingValue: true,
+      progressMessage: ""
+    }),
+    computed: {
+      ...mapState(["address", "balance", "tokenBalances"]),
+      tokenBalance() {
+        const balance =
+          this.tokenBalances &&
+          this.tokenAddress &&
+          this.tokenBalances.find(t => t.token === this.tokenAddress);
+
+        return new BigNumber(balance ? balance.balance : "0").toNumber();
+      }
+    },
+    mounted() {
       this.reloadData();
-    });
-    setInterval(() => this.reloadData(), 120 * 1000);
-  },
-  methods: {
-    openBuy() {
-      this.showBuyModal = true;
-      this.buyValue();
+      EventBus.$on("reloadData", () => {
+        this.reloadData();
+      });
+      setInterval(() => this.reloadData(), 120 * 1000);
     },
-    openSell() {
-      this.showSellModal = true;
-      this.sellValue();
-    },
-    async reloadData() {
-      this.totalSupply = null;
-      this.buyPrice = null;
+    methods: {
+      openBuy() {
+        this.showBuyModal = true;
+        this.buyValue();
+      },
+      openSell() {
+        this.showSellModal = true;
+        this.sellValue();
+      },
+      async reloadData() {
+        this.totalSupply = null;
+        this.buyPrice = null;
 
-      const data = await Backend.getWordSale(this.sale);
-      this.tokenAddress = data.tokenAddress;
-      this.buyPrice = data.buyPrice;
-      this.sellPrice = data.sellPrice;
+        const data = await Backend.getWordSale(this.sale);
+        this.tokenAddress = data.tokenAddress;
+        this.buyPrice = data.buyPrice;
+        this.sellPrice = data.sellPrice;
 
-      this.buyAmount = 1;
-      this.sellAmount = 1;
+        this.buyAmount = 1;
+        this.sellAmount = 1;
 
-      this.loading = false;
-      this.showSellModal = false;
-      this.showBuyModal = false;
-    },
-    async buyValue() {
-      this.updatingValue = true;
+        this.loading = false;
+        this.showSellModal = false;
+        this.showBuyModal = false;
+      },
+      async buyValue() {
+        this.updatingValue = true;
 
-      const amount = shiftDecimalPlaces(this.buyAmount || 0, 18).toFixed();
+        const amount = shiftDecimalPlaces(this.buyAmount || 0, 18).toFixed();
 
-      const value = await this.$store.dispatch('aeternity/tokenSaleMethod',
-        {
+        const value = await this.$store.dispatch("aeternity/tokenSaleMethod", {
           contractAddress: this.sale,
-          method: 'calculate_buy_price',
-          args: [amount],
+          method: "calculate_buy_price",
+          args: [amount]
         });
 
-      this.buyAeAmount = value;
-      this.updatingValue = false;
-      return { amount, value };
-    },
-    async sellValue() {
-      this.updatingValue = true;
+        this.buyAeAmount = value;
+        this.updatingValue = false;
+        return { amount, value };
+      },
+      async sellValue() {
+        this.updatingValue = true;
 
-      const amount = shiftDecimalPlaces(this.sellAmount || 0, 18).toFixed();
-      this.sellAeAmount = await this.$store.dispatch('aeternity/tokenSaleMethod',
-        {
-          contractAddress: this.sale,
-          method: 'calculate_sell_return',
-          args: [amount],
-        }).catch(() => 0);
-      this.updatingValue = false;
-    },
-    async buy() {
-      this.loading = true;
-      this.progressMessage = this.$t('components.WordBuySellButtons.Buying');
-
-      try {
-        const { amount, value } = await this.buyValue();
-        await this.$store.dispatch('aeternity/tokenSaleMethod',
-          {
+        const amount = shiftDecimalPlaces(this.sellAmount || 0, 18).toFixed();
+        this.sellAeAmount = await this.$store
+          .dispatch("aeternity/tokenSaleMethod", {
             contractAddress: this.sale,
-            method: 'buy',
+            method: "calculate_sell_return",
+            args: [amount]
+          })
+          .catch(() => 0);
+        this.updatingValue = false;
+      },
+      async buy() {
+        this.loading = true;
+        this.progressMessage = this.$t("components.WordBuySellButtons.Buying");
+
+        try {
+          const { amount, value } = await this.buyValue();
+          await this.$store.dispatch("aeternity/tokenSaleMethod", {
+            contractAddress: this.sale,
+            method: "buy",
             args: [amount],
-            options: { amount: value },
+            options: { amount: value }
           });
 
-        await Backend.invalidateTokenCache(this.tokenAddress);
-        await Backend.invalidateWordSaleCache(this.sale);
-      } catch (error) {
-        this.$store.dispatch('modals/open', {
-          name: 'failure',
-          title: error.message,
-          body: 'Transaction was not made!',
-          hideIcon: true,
-          primaryButtonText: 'OK',
-        });
-      } finally {
-        EventBus.$emit('reloadData', () => {
-          this.loading = false;
-          this.progressMessage = '';
-        });
-      }
-    },
-    async sell() {
-      this.loading = true;
-      this.progressMessage = this.$t('components.WordBuySellButtons.Selling[0]');
-      try {
-        const amount = shiftDecimalPlaces(this.sellAmount, 18).toFixed();
+          await Backend.invalidateTokenCache(this.tokenAddress);
+          await Backend.invalidateWordSaleCache(this.sale);
+        } catch (error) {
+          this.$store.dispatch("modals/open", {
+            name: "failure",
+            title: error.message,
+            body: "Transaction was not made!",
+            hideIcon: true,
+            primaryButtonText: "OK"
+          });
+        } finally {
+          EventBus.$emit("reloadData", () => {
+            this.loading = false;
+            this.progressMessage = "";
+          });
+        }
+      },
+      async sell() {
+        this.loading = true;
+        this.progressMessage = this.$t("components.WordBuySellButtons.Selling[0]");
+        try {
+          const amount = shiftDecimalPlaces(this.sellAmount, 18).toFixed();
 
-        await this.$store.dispatch('aeternity/createOrChangeAllowance', {
-          contractAddress: this.tokenAddress,
-          amount,
-          forAccount: this.sale.replace('ct_', 'ak_'),
-        }).catch(() => { throw new Error('Insufficient Account Balance'); });
-        this.progressMessage = this.$t('components.WordBuySellButtons.Selling[1]');
-        await this.$store.dispatch('aeternity/tokenSaleMethod',
-          {
+          await this.$store
+            .dispatch("aeternity/createOrChangeAllowance", {
+              contractAddress: this.tokenAddress,
+              amount,
+              forAccount: this.sale.replace("ct_", "ak_")
+            })
+            .catch(() => {
+              throw new Error("Insufficient Account Balance");
+            });
+          this.progressMessage = this.$t("components.WordBuySellButtons.Selling[1]");
+          await this.$store.dispatch("aeternity/tokenSaleMethod", {
             contractAddress: this.sale,
-            method: 'sell',
-            args: [amount],
+            method: "sell",
+            args: [amount]
           });
 
-        await Backend.invalidateTokenCache(this.tokenAddress);
-        await Backend.invalidateWordSaleCache(this.sale);
-      } catch (error) {
-        this.$store.dispatch('modals/open', {
-          name: 'failure',
-          title: error.message,
-          body: 'Transaction was not made!',
-          hideIcon: true,
-          primaryButtonText: 'OK',
-        });
-      } finally {
-        EventBus.$emit('reloadData', () => {
-          this.loading = false;
-          this.progressMessage = '';
-        });
+          await Backend.invalidateTokenCache(this.tokenAddress);
+          await Backend.invalidateWordSaleCache(this.sale);
+        } catch (error) {
+          this.$store.dispatch("modals/open", {
+            name: "failure",
+            title: error.message,
+            body: "Transaction was not made!",
+            hideIcon: true,
+            primaryButtonText: "OK"
+          });
+        } finally {
+          EventBus.$emit("reloadData", () => {
+            this.loading = false;
+            this.progressMessage = "";
+          });
+        }
       }
-    },
-  },
-};
+    }
+  };
 </script>
 
 <style lang="scss" scoped>
-.buttons {
-  button {
-    height: 32px;
-    width: 61px;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 16px;
-    line-height: 18px;
-
-    &:not(:last-child) {
-      margin-right: 16px;
-    }
-  }
-}
-
-::v-deep.not-bootstrap-modal {
-  .overlay {
-    z-index: 1;
-  }
-
-  .not-bootstrap-modal-content {
-    background-color: $actions_ribbon_background_color;
-    border: 1px solid $background_color;
-    box-sizing: border-box;
-    border-radius: 6px;
-    margin: 0 -6.3rem;
-    padding: 1rem;
-    width: 260px;
-    min-height: 392px;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 21px;
-    z-index: 1;
-
-    .label {
-      margin-bottom: 8px;
-    }
-
-    .modal-row {
-      margin-bottom: 24px;
-    }
-
-    .buy-sell {
-      padding: 4px;
-      min-width: 109px;
+  .buttons {
+    button {
       height: 32px;
+      width: 61px;
+      font-style: normal;
+      font-weight: bold;
       font-size: 16px;
-    }
+      line-height: 18px;
 
-    @include smallest {
-      padding: 0.5rem;
-    }
-
-    .loader {
-      margin-top: 96px;
+      &:not(:last-child) {
+        margin-right: 16px;
+      }
     }
   }
-}
 
-.input-group {
-  width: 228px;
-  margin-bottom: 24px;
-}
+  ::v-deep.not-bootstrap-modal {
+    .overlay {
+      z-index: 1;
+    }
 
-.return-amount {
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 24px;
+    .not-bootstrap-modal-content {
+      background-color: $actions_ribbon_background_color;
+      border: 1px solid $background_color;
+      box-sizing: border-box;
+      border-radius: 6px;
+      margin: 0 -6.3rem;
+      padding: 1rem;
+      width: 260px;
+      min-height: 392px;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 21px;
+      z-index: 1;
 
-  .ae-amount-fiat {
-    max-width: 226px;
-    white-space: initial;
-    word-wrap: break-word;
+      .label {
+        margin-bottom: 8px;
+      }
+
+      .modal-row {
+        margin-bottom: 24px;
+      }
+
+      .buy-sell {
+        padding: 4px;
+        min-width: 109px;
+        height: 32px;
+        font-size: 16px;
+      }
+
+      @include smallest {
+        padding: 0.5rem;
+      }
+
+      .loader {
+        margin-top: 96px;
+      }
+    }
   }
 
-  .token-balance {
+  .input-group {
+    width: 228px;
+    margin-bottom: 24px;
+  }
+
+  .return-amount {
     display: flex;
-    flex-direction: column;
-  }
+    flex-direction: row;
+    margin-bottom: 24px;
 
-  .update-loading {
-    margin-left: 0.5rem;
-    width: auto;
-    opacity: 0.6;
+    .ae-amount-fiat {
+      max-width: 226px;
+      white-space: initial;
+      word-wrap: break-word;
+    }
+
+    .token-balance {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .update-loading {
+      margin-left: 0.5rem;
+      width: auto;
+      opacity: 0.6;
+    }
   }
-}
 </style>
